@@ -660,15 +660,15 @@ registries = []
 
 ```
 - selinux 사용 시
-podman run -d --name mirror-registry -p 5000:5000 --restart=always W
-    -v /paas/opt/registry/data:/var/lib/registry:z W
-    -v /paas/opt/registry/auth: /auth:z W
-    -e "REGISTRY_AUTH=htpasswd" W
-    -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" W
-    -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd W
-    -e /paas/opt/registry/certs:/certs:z W
-    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.dmzsd.kbstar.local.crt W
-    -e REGGISTRY_HTTP_TLS_KEY=/cer ts/registry.dmzsd.kbstar.local .key W
+podman run -d --name mirror-registry -p 5000:5000 --restart=always \
+    -v /paas/opt/registry/data:/var/lib/registry:z \
+    -v /paas/opt/registry/auth: /auth:z \
+    -e "REGISTRY_AUTH=htpasswd" \
+    -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+    -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+    -e /paas/opt/registry/certs:/certs:z \
+    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.dmzsd.kbstar.local.crt \
+    -e REGGISTRY_HTTP_TLS_KEY=/cer ts/registry.dmzsd.kbstar.local .key \
     docker.io/library/registry:2
 
 - selinux 미사용 시
