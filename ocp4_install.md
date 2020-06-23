@@ -192,7 +192,7 @@ chmod -R 755 /var/lib/tftpboot/pxelinx.cfg
 ```
 
 ```
-cd /root/paas_work/ instal |_file/kb-rhocp4/
+cd /root/paas_work/ instal |_file/-rhocp4/
 
 cp rhcos-4.3.0-x86_64-installer-initramfs.img /var/lib/tftpboot/ocp43/
 cp rhcos-4.3.0-x86_64-installer-kernel /var/lib/tftpboot/ocp43/
@@ -523,19 +523,19 @@ max-lease-time 14400;
     option broadcast-address          10.37.68.255;
     option subnet-mask                255.255.255.0;
     option domain-name-servers        10.37.68.13;
-    option domain-name                "intpg.kbstar.local";
-    option domain-scarch              "intpg.kbstar.local";
+    option domain-name                "intpg.star.local";
+    option domain-scarch              "intpg.star.local";
 
     subnet 10.37.68.0 netmask 255.255.255.0 {
     pool {
         range 10.37.68.10 10.37.68.38;
         
-        host nclbt301 { hardware ethernet 00:50:56:9c:ce:38; fixed-address 10.37.68.37; option host-name "nclbt301.intpg.kbstar.local"; }
-        host nclmt301 { hardware ethernet 00:50:56:9c:ce:39; fixed-address 10.37.68.15; option host-name "nclmt301.intpg.kbstar.local"; }
-        host nclmt302 { hardware ethernet 00:50:56:9c:ce:40; fixed-address 10.37.68.16; option host-name "nclmt302.intpg.kbstar.local"; }
-        host nclmt303 { hardware ethernet 00:50:56:9c:ce:41; fixed-address 10.37.68.17; option host-name "nclmt303.intpg.kbstar.local"; }
-        host nclps301 { hardware ethernet 00:50:56:9c:ce:42; fixed-address 10.37.68.18; option host-name "nclps301.intpg.kbstar.local"; }
-        host nclps302 { hardware ethernet 00:50:56:9c:ce:43; fixed-address 10.37.68.19; option host-name "nclps302.intpg.kbstar.local"; }
+        host nclbt301 { hardware ethernet 00:50:56:9c:ce:38; fixed-address 10.37.68.37; option host-name "nclbt301.intpg.star.local"; }
+        host nclmt301 { hardware ethernet 00:50:56:9c:ce:39; fixed-address 10.37.68.15; option host-name "nclmt301.intpg.star.local"; }
+        host nclmt302 { hardware ethernet 00:50:56:9c:ce:40; fixed-address 10.37.68.16; option host-name "nclmt302.intpg.star.local"; }
+        host nclmt303 { hardware ethernet 00:50:56:9c:ce:41; fixed-address 10.37.68.17; option host-name "nclmt303.intpg.star.local"; }
+        host nclps301 { hardware ethernet 00:50:56:9c:ce:42; fixed-address 10.37.68.18; option host-name "nclps301.intpg.star.local"; }
+        host nclps302 { hardware ethernet 00:50:56:9c:ce:43; fixed-address 10.37.68.19; option host-name "nclps302.intpg.star.local"; }
         
         # this will not give out
         deny unknown-clients;
@@ -667,8 +667,8 @@ podman run -d --name mirror-registry -p 5000:5000 --restart=always \
     -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
     -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
     -e /paas/opt/registry/certs:/certs:z \
-    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.dmzsd.kbstar.local.crt \
-    -e REGGISTRY_HTTP_TLS_KEY=/cer ts/registry.dmzsd.kbstar.local .key \
+    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.star.local.crt \
+    -e REGGISTRY_HTTP_TLS_KEY=/cer ts/registry.local .key \
     docker.io/library/registry:2
 
 - selinux 미사용 시
@@ -679,8 +679,8 @@ podman run -d --name mirror-registry -p 5000:5000 --restart=always \
     -e "REGISTRY_AUTH_HTPASSWO_REALM=Regislry Realm" \
     -e "REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd" \
     -v /paas/opt/registry/certs:/certs \
-    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.dmzsd.kbstar.local.crt \
-    -e REGISTRY_HTTP_TLS_KEY=/certs/registry.dmzsd.kbstar.local.key \
+    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.local.crt \
+    -e REGISTRY_HTTP_TLS_KEY=/certs/registry.local.key \
     docker.io/library/registry:2
 ```
 
@@ -733,7 +733,7 @@ cat pull-secret-config.json
 vi install-conig.yaml
 
 apiVersion: v1
-baseDomain: kbstar.local
+baseDomain: star.local
 compute:
 - hyperthreading: Enabled
   name: worker
@@ -753,9 +753,9 @@ networking:
   - 172.30.0.0/16
 platform:
   none: {}
-pullSecret: '{"auths":{"nclrpa01.dmzsd.kbstar.local:5000": {"auth":"cGFhc2FkbTpwYWFzZYWAt", "email": "noemail@localhost"}}}'
+pullSecret: '{"auths":{"nclrpa01.local:5000": {"auth":"cGFhc2FkbTpwYWFzZYWAt", "email": "noemail@localhost"}}}'
 sshKey: |
-  'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKu2Vc7qRrv51CtGoCPtPd0JTOxEjdWSb4LyprsQfFYcDxElVMKWdEFaprvRapvCfRtpKbkp5LqGiE7EdU/9mruToFVGxA+A9bT3dka5JmVOQiwJG9VVtcpoPpoNS7NLDeLZtH4SMWqw3nPLwfqra1z5sPAv5cImj55JuDT8PC8Ywpl1+XGJAr2GnTB23/ErYXhhzgYh7R8E5p1FrSTC0ACO5moHy+L1crEocLRDVVVQu+DceIkt2lMmZmexwvdFQ2f5BFB2/fl0HlZHIPJ7oCFxzV5+BwWpVDKrxHE51o9mpgU2epBTMNRaxulOfaUUnIt+mAOdwhR0q6817kwYHh root@nclrpa01.dmzsd.kbstar.local '
+  'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKu2Vc7qRrv51CtGoCPtPd0JTOxEjdWSb4LyprsQfFYcDxElVMKWdEFaprvRapvCfRtpKbkp5LqGiE7EdU/9mruToFVGxA+A9bT3dka5JmVOQiwJG9VVtcpoPpoNS7NLDeLZtH4SMWqw3nPLwfqra1z5sPAv5cImj55JuDT8PC8Ywpl1+XGJAr2GnTB23/ErYXhhzgYh7R8E5p1FrSTC0ACO5moHy+L1crEocLRDVVVQu+DceIkt2lMmZmexwvdFQ2f5BFB2/fl0HlZHIPJ7oCFxzV5+BwWpVDKrxHE51o9mpgU2epBTMNRaxulOfaUUnIt+mAOdwhR0q6817kwYHh root@nclrpa01.local '
 additionalTrustBundle: |
     -----BEGIN CERTIFICATE-----
     MIIFvTCCA6WgAwIBAgIJALbZi8oxd+Y5MA0GCSqGSIb3DQEBCwUAMHUxCzAJBgNV
@@ -792,17 +792,17 @@ additionalTrustBundle: |
     -----END CERTIFICATE-----
 imageContentSources: 
 - mirrors:
-  - registry.dmzsd.kbstar.local:5000/ocp4/openshift4
+  - registry.local:5000/ocp4/openshift4
   source: quay.io/openshift-release-dev/ocp-release
 - mirrors:
-  - registry.dmzsd.kbstar.local:5000/ocp4/openshift4
+  - registry.local:5000/ocp4/openshift4
   source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
 ```
 
 ```
 oc adm release info -a $HOME/merged_pullsecret.json "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-x86_64"
 
-oc adm release info -a /paas/opt/registry/pull-secret-config.json registry.intsd.kbstar.local:5000/ocp4/openshift4:4.3.1-x86_64
+oc adm release info -a /paas/opt/registry/pull-secret-config.json registry.local:5000/ocp4/openshift4:4.3.1-x86_64
 ```
 
 10) ssh-key 생성
@@ -954,14 +954,14 @@ timedatectl status
 ```
 각 노드 nmcli 설정 / 설정 후 지개동
 
-ssh core@nclef301.intpg.kbstar.local
+ssh core@nclef301.local
 sudo -i
-hostnamectl set-hostname nclef301.intpg.kbstar.local
+hostnamectl set-hostname nclef301.local
 nmcli con show
 nmcli con mod ens192 ipv4.addresses 10.37.68.24/24
 nmc|i con mod ens192 ipv4.gateway 10.37.68. 1
 nmcli con mod ensi92 ipv4.dns 10.37.68. 13, 10.37.68.14
-nmcli con mod ensi92 ipv4.dns-search intpg.kbstar.local
+nmcli con mod ensi92 ipv4.dns-search.local
 nmcli con mod ens192 ipv4.method manual
 nmcli con mod ens192 ipv6.method ignore
 nmcli con reload
