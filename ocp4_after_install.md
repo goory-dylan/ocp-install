@@ -914,7 +914,7 @@ podman pull registry.demo.ocp4.com:5000/jboss—webserver-3/webserver31-tomcat7-
 4.1) podman 로그인
 
 ```
-podman login -u kbadmin -p $(oc whoami -t) default-route-openshift-imageregistry.apps.demo.ocp4.com --tls-verify=false
+podman login -u admin -p $(oc whoami -t) default-route-openshift-imageregistry.apps.demo.ocp4.com --tls-verify=false
 ```
 
 4.2) podman push
