@@ -840,15 +840,12 @@ kind: MachineConfigPool
 metadata:
   name: infra
 spec:
-  configuration:
-    name: rendered-worker-af92bc208ec7f1dbfbd5bd11f23af9e6
   machineConfigSelector:
-    matchLabels:
-      machineconfiguration.openshift.io/role: worker
+    matchExpressions:
+      - {key: machineconfiguration.openshift.io/role, operator: In, values: [worker,infra]}
   nodeSelector:
     matchLabels:
       node-role.kubernetes.io/infra: ""
-  paused: false
 ```
 
 3) machineconfigpool 생성 및 확인
