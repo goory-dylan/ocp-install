@@ -519,23 +519,23 @@ ddns-update-style interim;
 default-lease-time 14400:
 max-lease-time 14400;
 
-    option routers                    10.37.68.1;
-    option broadcast-address          10.37.68.255;
+    option routers                    100.307.68.1;
+    option broadcast-address          100.307.68.255;
     option subnet-mask                255.255.255.0;
-    option domain-name-servers        10.37.68.13;
-    option domain-name                "intpg.star.local";
-    option domain-scarch              "intpg.star.local";
+    option domain-name-servers        100.370.68.13;
+    option domain-name                "demo.ocp.local";
+    option domain-scarch              "demo.ocp.local";
 
     subnet 10.37.68.0 netmask 255.255.255.0 {
     pool {
-        range 10.37.68.10 10.37.68.38;
+        range 100.370.68.10 100.370.68.38;
         
-        host nclbt301 { hardware ethernet 00:50:56:9c:ce:38; fixed-address 10.37.68.37; option host-name "nclbt301.intpg.star.local"; }
-        host nclmt301 { hardware ethernet 00:50:56:9c:ce:39; fixed-address 10.37.68.15; option host-name "nclmt301.intpg.star.local"; }
-        host nclmt302 { hardware ethernet 00:50:56:9c:ce:40; fixed-address 10.37.68.16; option host-name "nclmt302.intpg.star.local"; }
-        host nclmt303 { hardware ethernet 00:50:56:9c:ce:41; fixed-address 10.37.68.17; option host-name "nclmt303.intpg.star.local"; }
-        host nclps301 { hardware ethernet 00:50:56:9c:ce:42; fixed-address 10.37.68.18; option host-name "nclps301.intpg.star.local"; }
-        host nclps302 { hardware ethernet 00:50:56:9c:ce:43; fixed-address 10.37.68.19; option host-name "nclps302.intpg.star.local"; }
+        host nclbt301 { hardware ethernet 00:50:56:; fixed-address 10.37.68.37; option host-name "demo301.demo.ocp.local"; }
+        host nclmt301 { hardware ethernet 00:50:56:; fixed-address 10.37.68.15; option host-name "demo301.demo.ocp.local"; }
+        host nclmt302 { hardware ethernet 00:50:56:; fixed-address 10.37.68.16; option host-name "demo302.demo.ocp.local"; }
+        host nclmt303 { hardware ethernet 00:50:56:; fixed-address 10.37.68.17; option host-name "demo303.demo.ocp.local"; }
+        host nclps301 { hardware ethernet 00:50:56:; fixed-address 10.37.68.18; option host-name "demo301.demo.ocp.local"; }
+        host nclps302 { hardware ethernet 00:50:56:; fixed-address 10.37.68.19; option host-name "demo302.demo.ocp.local"; }
         
         # this will not give out
         deny unknown-clients;
@@ -544,7 +544,7 @@ max-lease-time 14400;
         filename "pxelinux.0";
 
         #PXE Boot Server IP
-        next-server 10.37.68. 12:
+        next-server 100.370.68. 12:
         }
 }
 ```
