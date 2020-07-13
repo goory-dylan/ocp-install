@@ -485,12 +485,15 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: deny-other-namespaces
-  namespace: openshift-monitoring
 spec:
   podSelector: null
   ingress:
     - from:
         - podSelector: {}
+```
+
+```
+oc label namespace default 'network.openshift.io/policy-group=ingress'
 ```
 
 4) 정책 적용 대상 프로젝트에 3개 정책 적용
@@ -525,7 +528,6 @@ objects:
       openshift.io/description: ${PROJECT_DESCRIPTION}
       openshift.io/display-name: ${PROJECT_DISPLAYNAME}
       openshift.io/requester: ${PROJECT_REQUESTING_USER}
-      openshift.io/node-selector: node-role.kubernetes.io/worker=
     creationTimestamp: null
     name: ${PROJECT_NAME}
   spec: {}
@@ -541,44 +543,32 @@ objects:
     kind: ClusterRole
     name: admin
   subjects:
-  - apiGroup: rbac.authorization.k8s.io
-    kind: User
-    name: ${PROJECT_ADMIN_USER}
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: allow-from-openshift-ingress
-    spec:
-      ingress:
-      - from:
-        - namespaceSelector:
-            matchLabels:
-              network.openshift.io/policy-group: ingress
-      podSelector: {}
-      policyTypes:
-      - Ingress
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: allow-from-openshift-monitoring
-    spec:
-      ingress:
-      - from:
-        - namespaceSelector:
-            matchLabels:
-              network.openshift.io/policy-group: monitoring
-      podSelector: {}
-      policyTypes:
-      - Ingress
-  - apiVersion: networking.k8s.io/v1
-    kind: NetworkPolicy
-    metadata:
-      name: deny-other-namespaces
-    spec:
-      podSelector: null
-      ingress:
-        - from:
-          - podSelector: {}
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: allow-from-openshift-ingress
+  spec:
+    ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            network.openshift.io/policy-group: ingress
+    podSelector: {}
+    policyTypes:
+    - Ingress
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: allow-from-openshift-monitoring
+  spec:
+    ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            network.openshift.io/policy-group: monitoring
+    podSelector: {}
+    policyTypes:
+    - Ingress
 parameters:
 - name: PROJECT_NAME
 - name: PROJECT_DISPLAYNAME
