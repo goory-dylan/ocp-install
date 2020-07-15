@@ -815,6 +815,7 @@ nmcli con reload
 
 
 ### 16. MachineConfigPool 추가 / node의 각 role 별로 수행 (infra, logging 등)
+https://github.com/openshift/machine-config-operator/blob/master/docs/custom-pools.md
 
 1) worker machineconfigpool export
 
